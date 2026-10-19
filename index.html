@@ -1,0 +1,663 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>MediHire · Hospital Careers</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: #f2f6fc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem 1rem 2rem;
+      min-height: 100vh;
+    }
+
+    .app-container {
+      max-width: 1400px;
+      width: 100%;
+    }
+
+    /* === HEADER === */
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      background: white;
+      padding: 1rem 1.5rem;
+      border-radius: 2rem;
+      box-shadow: 0 8px 20px rgba(0, 20, 30, 0.06);
+      margin-bottom: 1.75rem;
+      border: 1px solid #e9f0f5;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .logo-icon {
+      background: #0b6e8f;
+      color: white;
+      width: 2.6rem;
+      height: 2.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 1rem;
+      font-size: 1.4rem;
+      box-shadow: 0 6px 12px rgba(11, 110, 143, 0.25);
+    }
+
+    .logo-text {
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+      color: #0a2e3f;
+    }
+
+    .logo-text span {
+      color: #0b6e8f;
+      font-weight: 800;
+    }
+
+    .header-stats {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .stat-badge {
+      background: #e4f0f7;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #0b4b62;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .stat-badge i {
+      font-size: 0.9rem;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: #f9fcff;
+      padding: 0.3rem 0.3rem 0.3rem 0.9rem;
+      border-radius: 2rem;
+      border: 1px solid #d9e8f0;
+    }
+
+    .user-profile i {
+      color: #0b6e8f;
+      font-size: 1.1rem;
+    }
+
+    .user-profile .avatar {
+      width: 2.2rem;
+      height: 2.2rem;
+      background: #0b6e8f;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* === FILTER BAR === */
+    .filter-bar {
+      background: white;
+      padding: 1rem 1.25rem;
+      border-radius: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 6px 16px rgba(0, 20, 30, 0.03);
+      border: 1px solid #e2eef7;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    .filter-chip {
+      background: #eef5fa;
+      border: 1px solid #cde0eb;
+      padding: 0.5rem 1.2rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #1b4f64;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: default;
+      transition: 0.1s ease;
+    }
+
+    .filter-chip i {
+      font-size: 0.7rem;
+      color: #0b6e8f;
+    }
+
+    .filter-chip.active {
+      background: #0b6e8f;
+      border-color: #0b6e8f;
+      color: white;
+    }
+
+    .filter-chip.active i {
+      color: white;
+    }
+
+    .search-wrapper {
+      display: flex;
+      align-items: center;
+      background: #f7fafd;
+      border-radius: 2rem;
+      padding: 0.2rem 0.2rem 0.2rem 1rem;
+      border: 1px solid #cde0eb;
+      min-width: 220px;
+      flex: 1 1 220px;
+    }
+
+    .search-wrapper i {
+      color: #7a9bb0;
+      font-size: 0.9rem;
+    }
+
+    .search-wrapper input {
+      border: none;
+      background: transparent;
+      padding: 0.55rem 0.5rem;
+      font-size: 0.9rem;
+      width: 100%;
+      outline: none;
+      color: #133b4b;
+    }
+
+    .search-wrapper input::placeholder {
+      color: #93b1c2;
+      font-weight: 400;
+    }
+
+    .search-wrapper button {
+      background: #0b6e8f;
+      border: none;
+      color: white;
+      padding: 0.55rem 1.1rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: default;
+      letter-spacing: 0.01em;
+    }
+
+    /* === JOB GRID === */
+    .job-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .job-card {
+      background: white;
+      border-radius: 2rem;
+      padding: 1.5rem 1.3rem 1.3rem;
+      box-shadow: 0 8px 22px rgba(0, 30, 45, 0.06);
+      border: 1px solid #e6eff5;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+
+    .job-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 28px rgba(0, 60, 90, 0.08);
+      border-color: #b9d7e8;
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.9rem;
+    }
+
+    .job-icon {
+      background: #e1f0f8;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0b6e8f;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .salary-tag {
+      background: #e2f3e8;
+      padding: 0.3rem 0.8rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #1b6e4b;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      white-space: nowrap;
+    }
+
+    .salary-tag i {
+      font-size: 0.65rem;
+    }
+
+    .job-title {
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: #0a2e3f;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.3rem;
+      line-height: 1.3;
+    }
+
+    .hospital-name {
+      font-size: 0.88rem;
+      color: #4d6f82;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.8rem;
+      font-weight: 500;
+    }
+
+    .hospital-name i {
+      color: #0b6e8f;
+      font-size: 0.75rem;
+    }
+
+    .job-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1rem;
+      margin: 0.8rem 0 1rem;
+      font-size: 0.8rem;
+      color: #2b5c74;
+      background: #f5faff;
+      padding: 0.8rem 1rem;
+      border-radius: 1.2rem;
+    }
+
+    .job-details span {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .job-details i {
+      color: #0b6e8f;
+      width: 1rem;
+      font-size: 0.75rem;
+    }
+
+    .job-desc {
+      font-size: 0.84rem;
+      color: #3f6278;
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
+      flex: 1;
+    }
+
+    .apply-section {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      border-top: 1px dashed #d1e2ed;
+      padding-top: 1rem;
+    }
+
+    .fee-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #fff2db;
+      padding: 0.4rem 0.9rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #a8640e;
+    }
+
+    .fee-badge i {
+      font-size: 0.7rem;
+    }
+
+    .apply-btn {
+      background: #0b6e8f;
+      border: none;
+      padding: 0.7rem 1.3rem;
+      border-radius: 2rem;
+      color: white;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: default;
+      box-shadow: 0 6px 12px rgba(11, 110, 143, 0.2);
+      transition: 0.1s;
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+    }
+
+    .apply-btn i {
+      font-size: 0.8rem;
+    }
+
+    /* modal (payment) simulation – static, no JS */
+    .payment-note {
+      font-size: 0.7rem;
+      color: #8b6f4c;
+      background: #fff9ef;
+      border-radius: 0.8rem;
+      padding: 0.4rem 0.8rem;
+      margin-top: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: 1px solid #f7e2c0;
+      font-weight: 500;
+    }
+
+    .payment-note i {
+      color: #c28b3b;
+      font-size: 0.7rem;
+    }
+
+    /* footer / disclaimer */
+    .footnote {
+      margin-top: 2.5rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #6c8d9e;
+      border-top: 1px solid #d9e6ef;
+      padding-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 2rem;
+    }
+
+    .footnote i {
+      color: #0b6e8f;
+      margin-right: 0.3rem;
+    }
+
+    /* responsive micro-adjust */
+    @media (max-width: 600px) {
+      .header {
+        padding: 0.9rem 1rem;
+        border-radius: 1.6rem;
+      }
+      .logo-text {
+        font-size: 1.3rem;
+      }
+      .filter-bar {
+        border-radius: 1.6rem;
+        padding: 0.9rem 1rem;
+      }
+      .job-card {
+        padding: 1.2rem 1rem;
+        border-radius: 1.6rem;
+      }
+      .job-title {
+        font-size: 1.1rem;
+      }
+      .apply-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+      }
+      .fee-badge {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.7rem;
+      }
+      .stat-badge {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .job-grid {
+        grid-template-columns: 1fr;
+      }
+      .filter-group {
+        width: 100%;
+      }
+      .search-wrapper {
+        flex: 1 1 100%;
+      }
+    }
+
+    /* interactive feeling (even if no real JS) */
+    .filter-chip, .apply-btn, .search-wrapper button {
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- HEADER -->
+    <header class="header">
+      <div class="logo-area">
+        <div class="logo-icon">
+          <i class="fas fa-hospital"></i>
+        </div>
+        <div class="logo-text">Medi<span>Hire</span></div>
+      </div>
+      <div class="header-stats">
+        <div class="stat-badge">
+          <i class="fas fa-briefcase"></i> 243 hospital jobs
+        </div>
+        <div class="stat-badge">
+          <i class="fas fa-check-circle"></i> 81 hiring now
+        </div>
+        <div class="user-profile">
+          <i class="fas fa-bell"></i>
+          <div class="avatar">DR</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- FILTER / SEARCH -->
+    <div class="filter-bar">
+      <div class="filter-group">
+        <div class="filter-chip active"><i class="fas fa-stethoscope"></i> All roles</div>
+        <div class="filter-chip"><i class="fas fa-user-md"></i> Physician</div>
+        <div class="filter-chip"><i class="fas fa-user-nurse"></i> Nursing</div>
+        <div class="filter-chip"><i class="fas fa-flask"></i> Lab</div>
+        <div class="filter-chip"><i class="fas fa-x-ray"></i> Radiology</div>
+      </div>
+      <div class="search-wrapper">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search hospital, job title..." value="cardiology">
+        <button>Search</button>
+      </div>
+    </div>
+
+    <!-- JOB GRID -->
+    <div class="job-grid">
+
+      <!-- JOB 1 -->
+      <div class="job-card">
+        <div class="job-header">
+          <div class="job-icon"><i class="fas fa-heartbeat"></i></div>
+          <div class="salary-tag"><i class="fas fa-circle"></i> $280k–$340k</div>
+        </div>
+        <h3 class="job-title">Cardiologist – Interventional</h3>
+        <div class="hospital-name"><i class="fas fa-map-pin"></i> Mount Sinai Heart Institute, NY</div>
+        <div class="job-details">
+          <span><i class="fas fa-clock"></i> Full-time</span>
+          <span><i class="fas fa-calendar-alt"></i> 3+ yrs exp</span>
+          <span><i class="fas fa-graduation-cap"></i> MD / Board</span>
+        </div>
+        <p class="job-desc">Join top cardiac team. Perform angioplasties, lead research. State-of-the-art cath lab. 1:6 call schedule.</p>
+        <div class="apply-section">
+          <div class="fee-badge"><i class="fas fa-lock"></i> $15 fee</div>
+          <div class="apply-btn"><i class="fas fa-paper-plane"></i> Apply</div>
+        </div>
+        <div class="payment-note"><i class="fas fa-credit-card"></i> Payment required before submission — secure.</div>
+      </div>
+
+      <!-- JOB 2 -->
+      <div class="job-card">
+        <div class="job-header">
+          <div class="job-icon"><i class="fas fa-user-nurse"></i></div>
+          <div class="salary-tag"><i class="fas fa-circle"></i> $95k–$115k</div>
+        </div>
+        <h3 class="job-title">ICU Registered Nurse</h3>
+        <div class="hospital-name"><i class="fas fa-map-pin"></i> Cleveland Clinic, OH</div>
+        <div class="job-details">
+          <span><i class="fas fa-clock"></i> Night shift</span>
+          <span><i class="fas fa-calendar-alt"></i> 2+ yrs</span>
+          <span><i class="fas fa-certificate"></i> BLS/ACLS</span>
+        </div>
+        <p class="job-desc">Critical care nursing in 24-bed ICU. Ventilator management, post-op cardiac. Tuition reimbursement.</p>
+        <div class="apply-section">
+          <div class="fee-badge"><i class="fas fa-lock"></i> $10 fee</div>
+          <div class="apply-btn"><i class="fas fa-paper-plane"></i> Apply</div>
+        </div>
+        <div class="payment-note"><i class="fas fa-credit-card"></i> One-time fee — apply after payment.</div>
+      </div>
+
+      <!-- JOB 3 -->
+      <div class="job-card">
+        <div class="job-header">
+          <div class="job-icon"><i class="fas fa-brain"></i></div>
+          <div class="salary-tag"><i class="fas fa-circle"></i> $310k–$380k</div>
+        </div>
+        <h3 class="job-title">Neurosurgeon – Spine</h3>
+        <div class="hospital-name"><i class="fas fa-map-pin"></i> Mayo Clinic, MN</div>
+        <div class="job-details">
+          <span><i class="fas fa-clock"></i> Full-time</span>
+          <span><i class="fas fa-calendar-alt"></i> 5+ yrs</span>
+          <span><i class="fas fa-graduation-cap"></i> Fellowship</span>
+        </div>
+        <p class="job-desc">Complex spine surgery, minimally invasive techniques. Collaborate with top neurologists. Academic appointment.</p>
+        <div class="apply-section">
+          <div class="fee-badge"><i class="fas fa-lock"></i> $20 fee</div>
+          <div class="apply-btn"><i class="fas fa-paper-plane"></i> Apply</div>
+        </div>
+        <div class="payment-note"><i class="fas fa-credit-card"></i> Verification & payment before submitting.</div>
+      </div>
+
+      <!-- JOB 4 -->
+      <div class="job-card">
+        <div class="job-header">
+          <div class="job-icon"><i class="fas fa-microscope"></i></div>
+          <div class="salary-tag"><i class="fas fa-circle"></i> $65k–$85k</div>
+        </div>
+        <h3 class="job-title">Clinical Lab Scientist</h3>
+        <div class="hospital-name"><i class="fas fa-map-pin"></i> Johns Hopkins, MD</div>
+        <div class="job-details">
+          <span><i class="fas fa-clock"></i> Full-time</span>
+          <span><i class="fas fa-calendar-alt"></i> 1+ yrs</span>
+          <span><i class="fas fa-flask"></i> ASCP</span>
+        </div>
+        <p class="job-desc">Perform high-complexity testing in microbiology & hematology. Rotation weekends. Tuition support.</p>
+        <div class="apply-section">
+          <div class="fee-badge"><i class="fas fa-lock"></i> $8 fee</div>
+          <div class="apply-btn"><i class="fas fa-paper-plane"></i> Apply</div>
+        </div>
+        <div class="payment-note"><i class="fas fa-credit-card"></i> Pay & submit — secure gateway.</div>
+      </div>
+
+      <!-- JOB 5 -->
+      <div class="job-card">
+        <div class="job-header">
+          <div class="job-icon"><i class="fas fa-x-ray"></i></div>
+          <div class="salary-tag"><i class="fas fa-circle"></i> $120k–$150k</div>
+        </div>
+        <h3 class="job-title">Radiology Technologist</h3>
+        <div class="hospital-name"><i class="fas fa-map-pin"></i> Stanford Health, CA</div>
+        <div class="job-details">
+          <span><i class="fas fa-clock"></i> Evening</span>
+          <span><i class="fas fa-calendar-alt"></i> 2+ yrs</span>
+          <span><i class="fas fa-certificate"></i> ARRT</span>
+        </div>
+        <p class="job-desc">Operate CT and X-ray equipment. Work in Level I trauma center. New grads with ARRT welcome.</p>
+        <div class="apply-section">
+          <div class="fee-badge"><i class="fas fa-lock"></i> $12 fee</div>
+          <div class="apply-btn"><i class="fas fa-paper-plane"></i> Apply</div>
+        </div>
+        <div class="payment-note"><i class="fas fa-credit-card"></i> Application fee required right before submit.</div>
+      </div>
+
+      <!-- JOB 6 -->
+      <div class="job-card">
+        <div class="job-header">
+          <div class="job-icon"><i class="fas fa-child"></i></div>
+          <div class="salary-tag"><i class="fas fa-circle"></i> $210k–$280k</div>
+        </div>
+        <h3 class="job-title">Pediatrician – Primary Care</h3>
+        <div class="hospital-name"><i class="fas fa-map-pin"></i> Boston Children's, MA</div>
+        <div class="job-details">
+          <span><i class="fas fa-clock"></i> Full-time</span>
+          <span><i class="fas fa-calendar-alt"></i> 3+ yrs</span>
+          <span><i class="fas fa-graduation-cap"></i> Board cert.</span>
+        </div>
+        <p class="job-desc">Outpatient pediatric clinic. 4-day work week. Collaborate with specialists. Loan repayment available.</p>
+        <div class="apply-section">
+          <div class="fee-badge"><i class="fas fa-lock"></i> $15 fee</div>
+          <div class="apply-btn"><i class="fas fa-paper-plane"></i> Apply</div>
+        </div>
+        <div class="payment-note"><i class="fas fa-credit-card"></i> Secure payment – immediate application receipt.</div>
+      </div>
+    </div>
+
+    <!-- FOOTNOTE / PROFESSIONAL TOUCH -->
+    <div class="footnote">
+      <span><i class="fas fa-shield-alt"></i> All hospital jobs verified · payment secured</span>
+      <span><i class="fas fa-credit-card"></i> Application fee: $8–$20 (one-time, non-refundable)</span>
+      <span><i class="fas fa-lock"></i> HIPAA-compliant platform</span>
+    </div>
+  </div>
+
+  <!-- subtle ui note: this is a visual prototype with payment-before-apply pattern -->
+</body>
+  </html>
